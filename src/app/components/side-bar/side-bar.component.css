@@ -1,0 +1,14 @@
+.side_bar_container {
+    width: 200px;
+    height: 90.5vh;
+    background-color: #586474;
+    color: white;
+    padding: 25px;
+    padding-left: 50px;
+    z-index: -1;
+}
+
+p {
+    margin-bottom: 40px;
+    cursor: pointer;
+}
