@@ -7,7 +7,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PeopleListComponent } from './components/people-list/people-list.component';
-import { StarwarsApiService } from './services/starwars-api.service'
+import { StarwarsApiService } from './services/starwars-api.service';
+import { SinglePersonComponent } from './components/people-list/single-person/single-person.component'
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { StarwarsApiService } from './services/starwars-api.service'
     AppComponent,
     HeaderComponent,
     SideBarComponent,
-    PeopleListComponent
+    PeopleListComponent,
+    SinglePersonComponent
   ],
   imports: [
     BrowserModule,

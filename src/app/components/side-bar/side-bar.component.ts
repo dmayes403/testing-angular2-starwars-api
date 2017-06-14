@@ -11,24 +11,9 @@ import { StarwarsApiService } from '../../services/starwars-api.service';
 export class SideBarComponent implements OnInit {
     people = [];
 
-    constructor(private starwarsApiSerivce: StarwarsApiService) { }
+    constructor(private starwarsApiService: StarwarsApiService) { }
 
     ngOnInit() {
     }
-
-    getPeople() {
-        this.starwarsApiSerivce.onGetPeople()
-            .subscribe(
-                (people: any[]) => {
-                    this.people = people;
-                    this.starwarsApiSerivce.peopleChanged.next(this.people);
-                },
-                (error) => console.log(error)
-            )
-    }
-
-    // getPeople() {
-    //     this.starwarsApiSerivce.onGetPeople()
-    // }
 
 }

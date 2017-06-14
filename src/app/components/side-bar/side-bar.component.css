@@ -3,12 +3,22 @@
     height: 90.5vh;
     background-color: #586474;
     color: white;
-    padding: 25px;
-    padding-left: 50px;
+    padding: 25px 0px;
     z-index: -1;
+}
+
+.side_bar_links_container {
+    padding-left: 40px;
 }
 
 p {
     margin-bottom: 40px;
     cursor: pointer;
+    font-size: 28px;
+}
+
+.logo_image {
+    object-fit: contain;
+    width: 175px;
+    padding-left: 20px;
 }

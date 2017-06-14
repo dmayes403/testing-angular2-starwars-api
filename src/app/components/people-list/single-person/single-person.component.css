@@ -1,0 +1,33 @@
+.main_container {
+    border: 1px solid gray;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+:host {
+    /*display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;*/
+    width: 60%;
+    height: 100%;
+}
+
+.singlePersonImage {
+    object-fit: cover;
+    height: 150px;
+    width: 150px;
+    border: 1px solid gray;
+}
+
+.main_container h1 {
+    font-size: 28px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.backgroundInfoContainer {
+    margin-left: 25px;
+    width: 60%;
+}

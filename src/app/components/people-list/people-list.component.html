@@ -1,3 +1,9 @@
-<p>
-  people-list works!
-</p>
+<section class="main_container">
+    <section>
+        <!--<div class="person_container" *ngFor="let person of peopleList; let i = index" (click)="getSinglePerson(i+1)" [routerLink]="['/people', i+1]">-->
+        <div class="person_container" *ngFor="let person of peopleList; let i = index" [routerLink]="['/people', i+1]">
+            <h1 class="single_person">{{ person.name }}</h1>
+        </div>
+    </section>
+    <router-outlet></router-outlet>
+</section>
