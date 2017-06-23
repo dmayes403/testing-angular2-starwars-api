@@ -3,6 +3,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { StarwarsApiService } from '../../../services/starwars-api.service';
 
+import { Observable } from 'rxjs/Observable';
+import { Http, Headers, Response } from '@angular/http';
+
 @Component({
     selector: 'app-single-person',
     templateUrl: './single-person.component.html',
@@ -12,10 +15,12 @@ export class SinglePersonComponent implements OnInit {
     singlePerson: any[];
     planets: any[];
     species: any[];
+    loadedCharacter: any;
 
     constructor(private starwarsApiService: StarwarsApiService,
                 private route: ActivatedRoute,
-                private router: Router) {}
+                private router: Router,
+                private http: Http) {}
 
     ngOnInit() {
 
@@ -47,27 +52,25 @@ export class SinglePersonComponent implements OnInit {
             );
 
         // this.starwarsApiService.onGetCirus();
+
+        // const character = this.http.get('https://swapi.co/api/people/1').map(res => res.json());
+        // const characterHomeworld = this.http.get('http://swapi.co/api/planets/1').map(res => res.json());
+
+        // Observable.forkJoin([character, characterHomeworld]).subscribe(results => {
+        // // results[0] is our character
+        // // results[1] is our character homeworld
+        // results[0].homeworld = results[1];
+        // this.loadedCharacter = results[0];
+        // console.log(results[0].homeworld, this.loadedCharacter)
+        // });
+    }
+
+    onGetSinglePersonMovies() {
+        console.log(this.route.snapshot.params)
+        this.starwarsApiService.getSinglePersonMovies(this.route.snapshot.params.id).subscribe();
     }
 
 
-
-    //  onGetSinglePersonPlanets(personIndex) {
-    //     return this.http.get(`http://swapi.co/api/planets/${personIndex}/`)
-    //         .map(res => res.json())
-    //         .flatMap(person => this.http.get(`${person.homeworld}`))
-    //         .map(
-    //             (response: Response) => {
-    //                 const planets = response.json()
-    //                 return planets;
-    //                 }
-    //             )
-    //         // .catch(
-    //         //     (error: Response) => {
-    //         //         return Observable.throw(error);
-    //         //     }
-    //         // )
-    //     }
-    // }
 
 
 

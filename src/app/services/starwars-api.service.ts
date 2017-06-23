@@ -74,5 +74,16 @@ export class StarwarsApiService {
                 }
             )
         }
-    }
+
+
+    getSinglePersonMovies(personIndex) {
+        return this.http.get(`http://swapi.co/api/people/${personIndex}/`)
+            .map(
+                (response: Response) => {
+                    const person = response.json()
+                    console.log(person);
+                    return person;
+                })
+        }
+}
 

@@ -8,9 +8,9 @@
         <p>Skin Color: {{ singlePerson?.skin_color }}</p>
     </section>
     <section class="backgroundInfoContainer">
-        <h1>{{ singlePerson?.name }}</h1>
+        <h1 (click)="onGetSinglePersonMovies()">{{ singlePerson?.name }}</h1>
         <hr>
-        <p>Home planet(s): {{ planets?.name }}</p>
+        <p>Homeworld: {{ planets?.name }}</p>
         <p>Species: {{ species?.name }}</p>
     </section>
 </section>
