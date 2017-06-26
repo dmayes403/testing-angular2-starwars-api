@@ -9,7 +9,6 @@ export class LoadingBarService {
     // console.log(this.currentStack);
 
     isLoading() {
-        console.log(this.currentStack);
         return this.currentStack > 0;
     }
 

@@ -1,0 +1,15 @@
+.image_container {
+    object-fit: cover;
+    width: 200px;
+    height: 15px;
+}
+
+input:focus {
+    outline: 2px solid red;
+}
+
+.main {
+    text-align: center;
+    padding: 25px;
+}
+

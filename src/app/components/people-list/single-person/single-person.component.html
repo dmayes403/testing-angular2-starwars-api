@@ -1,16 +1,25 @@
 <section class="main_container">
     <section class="appearance_container">
-        <img class="singlePersonImage" src="">
+        <img class="singlePersonImage" src="{{ picUrl }}" (click)="upDatePicDialog()">
         <p>Gender: {{ singlePerson?.gender }}</p>
         <p>Height: {{ singlePerson?.height }}</p>
         <p>Hair Color: {{ singlePerson?.hair_color }}</p>
         <p>Eye Color: {{ singlePerson?.eye_color }}</p>
         <p>Skin Color: {{ singlePerson?.skin_color }}</p>
     </section>
+    <md-progress-spinner
+        *ngIf="loading"
+        class="loading_spinner"
+        [color]="color"
+        [mode]="mode">
+    </md-progress-spinner>
     <section class="backgroundInfoContainer">
         <h1 (click)="onGetSinglePersonMovies()">{{ singlePerson?.name }}</h1>
         <hr>
         <p>Homeworld: {{ planets?.name }}</p>
         <p>Species: {{ species?.name }}</p>
+        <h3 style="margin-bottom: 5px; margin-top: 50px;">Films:</h3>
+        <hr>
+        <p style="font-size: 10px;" *ngFor="let film of films">{{ film.title }}</p>
     </section>
 </section>

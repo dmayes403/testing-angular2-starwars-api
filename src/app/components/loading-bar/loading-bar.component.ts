@@ -18,6 +18,13 @@ export class LoadingBarComponent implements OnInit {
 
     ngOnInit() {
         this.loading = this.loadingBarService.isLoading();
+
+        this.loadingBarService.loadingChanged
+            .subscribe(
+                (loadingChanged: boolean) => {
+                    this.loading = loadingChanged;
+                }
+            )
     }
 
 }

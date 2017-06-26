@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Response } from '@angular/http';
+import { MdDialog, MdDialogRef } from '@angular/material';
+
+import { UpdateUserDialogComponent } from '../update-user-dialog/update-user-dialog.component';
 
 import { StarwarsApiService } from '../../services/starwars-api.service';
 
@@ -10,8 +13,12 @@ import { StarwarsApiService } from '../../services/starwars-api.service';
 })
 export class SideBarComponent implements OnInit {
     people = [];
+    picUrl: string;
 
-    constructor(private starwarsApiService: StarwarsApiService) { }
+    constructor(
+                private starwarsApiService: StarwarsApiService,
+                public dialog: MdDialog
+                ) { }
 
     ngOnInit() {
     }

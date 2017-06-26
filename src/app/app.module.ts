@@ -14,6 +14,8 @@ import { BootResolver } from './services/boot-resolver.service';
 import { LoadingBarComponent } from './components/loading-bar/loading-bar.component';
 import { LoadingBarService } from './services/loading-bar.service';
 import 'hammerjs';
+import { UpdateUserDialogComponent } from './components/update-user-dialog/update-user-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -23,15 +25,18 @@ import 'hammerjs';
     SideBarComponent,
     PeopleListComponent,
     SinglePersonComponent,
-    LoadingBarComponent
+    LoadingBarComponent,
+    UpdateUserDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpModule,
-    MaterialModule
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [StarwarsApiService, BootResolver, LoadingBarService],
+  entryComponents: [UpdateUserDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

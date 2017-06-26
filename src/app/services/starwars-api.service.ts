@@ -5,6 +5,8 @@ import { Subject } from 'rxjs/Subject';
 import 'rxjs/Rx';
 import 'rxjs/add/operator/mergeMap'
 
+import { LoadingBarService } from './loading-bar.service';
+
 @Injectable()
 export class StarwarsApiService {
     peopleChanged = new Subject<any[]>()
@@ -12,24 +14,31 @@ export class StarwarsApiService {
     person: any[];
     planets: any[];
 
-    constructor(private http: Http) { }
+    constructor(
+                private http: Http,
+                private loadingBarService: LoadingBarService
+                ) { }
 
     onGetPeople(): Observable<any[]> {
+        this.loadingBarService.showLoadingBar();
         return this.http.get('http://swapi.co/api/people')
             .map(
                 (response: Response) => {
                     const people = response.json().results;
                     console.log(people);
+                    this.loadingBarService.hideLoadingBar();
                     return people;
                 }
             );
     }
 
     onGetSinglePerson(personIndex) {
+        this.loadingBarService.showLoadingBar();
         return this.http.get(`http://swapi.co/api/people/${personIndex}/`)
             .map(
                 (response: Response) => {
                     const person = response.json();
+                    this.loadingBarService.hideLoadingBar();
                     return person;
                 }
             )
@@ -41,12 +50,14 @@ export class StarwarsApiService {
     }
 
     onGetSinglePersonPlanets(personIndex) {
+        this.loadingBarService.showLoadingBar();
         return this.http.get(`http://swapi.co/api/people/${personIndex}/`)
             .map(res => res.json())
             .flatMap(person => this.http.get(`${person.homeworld}`))
             .map(
                 (response: Response) => {
                     const planets = response.json()
+                    this.loadingBarService.hideLoadingBar();
                     return planets;
                     }
                 )
@@ -59,12 +70,14 @@ export class StarwarsApiService {
 
 
     onGetSinglePersonSpecies(personIndex) {
+        this.loadingBarService.showLoadingBar();
         return this.http.get(`http://swapi.co/api/people/${personIndex}/`)
             .map(res => res.json())
             .flatMap(person => this.http.get(`${person.species}`))
             .map(
                 (response: Response) => {
                     const species = response.json()
+                    this.loadingBarService.hideLoadingBar();
                     return species;
                     }
                 )
@@ -76,14 +89,20 @@ export class StarwarsApiService {
         }
 
 
-    getSinglePersonMovies(personIndex) {
+    onGetSinglePersonMovie(personIndex) {
+        this.loadingBarService.showLoadingBar();
+        const filmArray = [];
         return this.http.get(`http://swapi.co/api/people/${personIndex}/`)
-            .map(
-                (response: Response) => {
-                    const person = response.json()
-                    console.log(person);
-                    return person;
-                })
-        }
-}
-
+            .flatMap((response: Response) => response.json().films)
+            .flatMap((film: string) => {
+                return this.http.get(film)
+                    .map(
+                        (response: Response) => {
+                            filmArray.push(response.json());
+                            this.loadingBarService.hideLoadingBar();
+                            return filmArray;
+                        }
+                    )
+            });
+    }
+};

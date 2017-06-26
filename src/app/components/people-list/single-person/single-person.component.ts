@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-
-import { StarwarsApiService } from '../../../services/starwars-api.service';
-
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers, Response } from '@angular/http';
+
+import { StarwarsApiService } from '../../../services/starwars-api.service';
+import { LoadingBarService } from '../../../services/loading-bar.service';
+
+import { UpdateUserDialogComponent } from '../../update-user-dialog/update-user-dialog.component';
+
+
 
 @Component({
     selector: 'app-single-person',
@@ -12,15 +17,23 @@ import { Http, Headers, Response } from '@angular/http';
     styleUrls: ['./single-person.component.css']
 })
 export class SinglePersonComponent implements OnInit {
+    color = 'primary';
+    mode = 'indeterminate';
     singlePerson: any[];
     planets: any[];
     species: any[];
     loadedCharacter: any;
+    films: any[];
+    picUrl: string;
+    loading: boolean;
 
     constructor(private starwarsApiService: StarwarsApiService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private http: Http) {}
+                private http: Http,
+                public dialog: MdDialog,
+                private loadingBarService: LoadingBarService
+) {}
 
     ngOnInit() {
 
@@ -48,26 +61,20 @@ export class SinglePersonComponent implements OnInit {
                             },
                             (error) => console.log(error)
                         );
+                    this.starwarsApiService.onGetSinglePersonMovie(params.id)
+                        .subscribe(
+                            (films) => { this.films = films },
+                            (error) => { console.log(error) }
+                        );
                 }
             );
-
-        // this.starwarsApiService.onGetCirus();
-
-        // const character = this.http.get('https://swapi.co/api/people/1').map(res => res.json());
-        // const characterHomeworld = this.http.get('http://swapi.co/api/planets/1').map(res => res.json());
-
-        // Observable.forkJoin([character, characterHomeworld]).subscribe(results => {
-        // // results[0] is our character
-        // // results[1] is our character homeworld
-        // results[0].homeworld = results[1];
-        // this.loadedCharacter = results[0];
-        // console.log(results[0].homeworld, this.loadedCharacter)
-        // });
     }
 
-    onGetSinglePersonMovies() {
-        console.log(this.route.snapshot.params)
-        this.starwarsApiService.getSinglePersonMovies(this.route.snapshot.params.id).subscribe();
+    upDatePicDialog() {
+        const dialogRef = this.dialog.open(UpdateUserDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+            this.picUrl = result;
+      });
     }
 
 
